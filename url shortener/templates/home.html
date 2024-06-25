@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+</head>
+<body>
+    <h1>Url Shortener</h1>
+    <form action="/shorten" method="post">
+        <label for="url">Enter an https:// URL:</label>
+        <input type="url" id="oldUrl" name="urlShort" placeholder="Enter the link here" pattern="https://.*" value="{{old_url}}" size="50" required>
+        
+        <br><br>
+        <label for="customUrl">Custom your short URL (Optional):</label>
+        <input type="text" id="customUrl" name="urlCustom" placeholder="example: 'hello' to generate http://127.0.0.1:5000/hello" size="50">
+        
+        <br><br>
+        <button type="submit" value="submit">Submit</button>
+
+        <br><br>
+
+        <label for="#">Generated new link</label>
+        <input id="newUrl" value="{{new_url}}" name="genUrl" size="50">
+    </form>
+
+    <div class="latestList">
+      <h2>Latest Shortened URLs</h2>
+      <ul class="url-list">
+        <!-- {% for shortUrl, data in latestUrls %}
+          <li>{{shortUrl}} - Clicks: {{data.clicks}} - Created At: {{data.createdAt}}</li>
+        {% endfor %} -->
+
+        {% if latestUrls %}
+                {% for shortUrl, data in latestUrls %}
+                    <li>{{ shortUrl }} - Clicks: {{ data.clicks }} - Created At: {{ data.createdAt }}</li>
+                {% endfor %}
+            {% else %}
+                <li>No URLs have been shortened yet.</li>
+        {% endif %}
+
+        <!-- <li>asdasdasdasdasdasdasdasdasdasdasdss</li>
+        <li>asdasdasdasdasdasdasdasdasdasdasdss</li>
+        <li>asdasdasdasdasdasdasdasdasdasdasdss</li>
+        <li>asdasdasdasdasdasdasdasdasdasdasdss</li>
+        <li>asdasdasdasdasdasdasdasdasdasdasdss</li> -->
+      </ul>
+    </div>
+  </body>
+</html>
